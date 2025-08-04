@@ -145,12 +145,13 @@
             }
         };
 
-        let currentLang = 'en';
+        let currentLang = 'it';
 
         function updateUI() {
             const langData = translations[currentLang];
             document.getElementById('main-title').textContent = langData.title;
             document.getElementById('search_term').placeholder = langData.placeholder;
+            document.getElementById('search_term').value = ''; // Clear the search term
             document.getElementById('btn-images').textContent = langData.images;
             document.getElementById('disclaimer-text').innerHTML = langData.disclaimer;
             const buttons = document.querySelectorAll('button');
@@ -209,4 +210,3 @@
     </script>
 </body>
 </html>
-
