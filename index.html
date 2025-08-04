@@ -9,7 +9,6 @@
             --light-color: #f8f9fa;
             --dark-color: #343a40;
         }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -17,7 +16,6 @@
             background-color: var(--light-color);
             color: var(--dark-color);
         }
-
         .container {
             max-width: 500px;
             margin: 40px auto;
@@ -27,11 +25,9 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
-
         .language-selector {
             margin-bottom: 20px;
         }
-
         .language-flag {
             cursor: pointer;
             padding: 8px 15px;
@@ -43,17 +39,14 @@
             display: inline-block;
             transition: background-color 0.3s;
         }
-
         .language-flag:hover, .language-flag.selected {
             background-color: #4fc3f7;
             color: white;
         }
-
         h1 {
             font-size: 1.8em;
             margin-bottom: 25px;
         }
-
         #search_term {
             width: calc(100% - 20px);
             padding: 12px;
@@ -63,14 +56,12 @@
             box-sizing: border-box;
             font-size: 1em;
         }
-
         .search-options {
             display: grid;
             grid-template-columns: 1fr;
             gap: 15px;
             margin-top: 20px;
         }
-
         button {
             padding: 12px;
             color: white;
@@ -80,28 +71,23 @@
             font-size: 1em;
             transition: background-color 0.3s;
         }
-
         button:hover {
             opacity: 0.9;
         }
-
         .alert {
             padding: 12px;
             margin: 15px 0;
             border-radius: 25px;
             display: none;
         }
-
         .error {
             background-color: #f8d7da;
             color: #721c24;
         }
-
         .success {
             background-color: #d4edda;
             color: #155724;
         }
-
         .disclaimer {
             margin-top: 30px;
             font-size: 0.8em;
@@ -117,23 +103,17 @@
             <span class="language-flag" data-lang="en">English</span>
             <span class="language-flag" data-lang="twi">Twi</span>
         </div>
-
         <h1 id="main-title">QUALE IMMAGINE STAI CERCANDO SU JW.ORG?</h1>
-
         <div id="error_alert" class="alert error"></div>
         <div id="success_alert" class="alert success"></div>
-
         <input type="text" id="search_term" placeholder="Inserisci qui il termine">
-
         <div class="search-options">
             <button onclick="search('images')" id="btn-images">🖼️ CERCA</button>
         </div>
-
         <div class="disclaimer">
             <p id="disclaimer-text"></p>
         </div>
     </div>
-
     <script>
         const translations = {
             it: {
@@ -165,7 +145,7 @@
             }
         };
 
-        let currentLang = 'en';
+        let currentLang = 'it';
 
         function updateUI() {
             const langData = translations[currentLang];
@@ -173,12 +153,10 @@
             document.getElementById('search_term').placeholder = langData.placeholder;
             document.getElementById('btn-images').textContent = langData.images;
             document.getElementById('disclaimer-text').innerHTML = langData.disclaimer;
-
             const buttons = document.querySelectorAll('button');
             buttons.forEach(button => {
                 button.style.backgroundColor = langData.buttonColor;
             });
-
             document.querySelectorAll('.language-flag').forEach(flag => {
                 if (flag.dataset.lang === currentLang) {
                     flag.classList.add('selected');
@@ -197,14 +175,11 @@
 
         function search(type) {
             const term = document.getElementById('search_term').value.trim();
-
             if (!term) {
                 showAlert('error', translations[currentLang].error);
                 return;
             }
-
             let url;
-
             if (currentLang === "it") {
                 url = `https://www.google.com/search?tbm=isch&q=${term}+site:jw.org/it`;
             } else if (currentLang === "en") {
@@ -212,7 +187,6 @@
             } else if (currentLang === "twi") {
                 url = `https://www.google.com/search?tbm=isch&q=${term}+site:jw.org/tw`;
             }
-
             showAlert('success', translations[currentLang].success + term);
             window.open(url, '_blank');
         }
@@ -224,8 +198,14 @@
             });
         });
 
+        // Aggiungi un listener per il tasto "Invio"
+        document.getElementById('search_term').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                search('images');
+            }
+        });
+
         updateUI();
     </script>
 </body>
 </html>
-
