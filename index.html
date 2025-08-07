@@ -94,6 +94,25 @@
             color: #6c757d;
             text-align: left;
         }
+        
+        /* Stile per i pulsanti di opzione */
+        .engine-options {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .engine-option {
+            display: flex;
+            align-items: center;
+        }
+        .engine-option input {
+            margin-right: 5px;
+        }
+        .engine-option.hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -108,8 +127,21 @@
         <div id="success_alert" class="alert success"></div>
         <input type="text" id="search_term" placeholder="Inserisci qui il termine">
         <div class="search-options">
-            <button onclick="search('images')" id="btn-images">🖼️ CERCA</button>
+            <button onclick="searchImages()" id="btn-images">🖼️ CERCA</button>
         </div>
+        
+        <!-- Sezione per la selezione del motore di ricerca -->
+        <div class="engine-options">
+            <label class="engine-option engine-google">
+                <input type="radio" name="search-engine" value="google" checked>
+                <span>Google®</span>
+            </label>
+            <label class="engine-option engine-bing">
+                <input type="radio" name="search-engine" value="bing">
+                <span>Bing®</span>
+            </label>
+        </div>
+        
         <div class="disclaimer">
             <p id="disclaimer-text"></p>
         </div>
@@ -123,7 +155,7 @@
                 error: "Per favore inserisci un termine di ricerca",
                 success: "Ricerca avviata per: ",
                 buttonColor: "#4a6fa5",
-                disclaimer: "<strong>Verificare sempre che le immagini mostrate provengano dal sito jw.org - ogni immagine riporta chiaramente in calce il sito di riferimento.</strong><br><br><strong>Disclaimer:</strong> Questo strumento di ricerca è un progetto indipendente e non è affiliato con JW.org. È destinato esclusivamente a scopi educativi e di ricerca. L'uso di questo strumento è a proprio rischio. Gli sviluppatori non si assumono alcuna responsabilità per eventuali danni derivanti dall'uso di questo strumento. JW.org e i relativi contenuti sono marchi registrati e protetti da copyright dei rispettivi proprietari. Questo strumento non intende violare alcun copyright o marchio."
+                disclaimer: "<strong>Verificare sempre che le immagini mostrate provengano dal sito jw.org</strong><br><br><strong>Disclaimer:</strong> Questo strumento di ricerca è un progetto indipendente e non è affiliato con JW.org. È destinato esclusivamente a scopi educativi e di ricerca. L'uso di questo strumento è a proprio rischio. Gli sviluppatori non si assumono alcuna responsabilità per eventuali danni derivanti dall'uso di questo strumento. JW.org e i relativi contenuti sono marchi registrati e protetti da copyright dei rispettivi proprietari. Questo strumento non intende violare alcun copyright o marchio."
             },
             en: {
                 title: "WHICH IMAGE ARE YOU LOOKING FOR ON JW.ORG?",
@@ -132,7 +164,7 @@
                 error: "Please enter a search term",
                 success: "Search started for: ",
                 buttonColor: "#28a745",
-                disclaimer: "<strong>Always verify that the images shown come from the jw.org website - each image clearly displays the reference website at the bottom.</strong><br><br><strong>Disclaimer:</strong> This search tool is an independent project and is not affiliated with JW.org. It is intended solely for educational and research purposes. Use of this tool is at your own risk. The developers assume no responsibility for any damages resulting from the use of this tool. JW.org and its contents are trademarks and copyrights of their respective owners. This tool does not intend to infringe any copyright or trademark."
+                disclaimer: "<strong>Always verify that the images shown come from the jw.org website</strong><br><br><strong>Disclaimer:</strong> This search tool is an independent project and is not affiliated with JW.org. It is intended solely for educational and research purposes. Use of this tool is at your own risk. The developers assume no responsibility for any damages resulting from the use of this tool. JW.org and its contents are trademarks and copyrights of their respective owners. This tool does not intend to infringe any copyright or trademark."
             },
             twi: {
                 title: "MFONINI BƐN NA WOREHWEHWƐ WƆ JW.ORG SO?",
@@ -141,11 +173,11 @@
                 error: "Yɛsrɛ sɛ metwerɛ asɛm a wopɛ sɛ wuhwehwɛ",
                 success: "Wɔahyehyɛ hwehwɛ ma: ",
                 buttonColor: "#dc3545",
-                disclaimer: "<strong>Hwɛ bio bio sɛ mfonini a wɔkyerɛ no fi jw.org website so – mfonini biara kyerɛ ne website a ɛfiri mu wɔ ase no pefee.</strong><br><br><strong>Nkaeɛ:</strong> Saa hwehwɛ adwuma yɛ adehyeɛ a emfi JW.org mu. Yɛde ma nkaeɛ a ɛyɛ adwuma wɔ nnasem ne nsɛm a ɛwɔ ho kyerɛkyerɛ ho. Wo ho nkɔmhyɛ wɔ saa adwuma yi so. Nnɛɛma a ɛbɛba a ɛwɔ saa adwuma yi ho nti, yɛnni ho nkɔmhyɛ. JW.org ne ne nneɛma yɛ nneɛma a wɔde awɔ wɔn a wɔwɔ ho nkra ne nneɛma a wɔde awɔ wɔn a wɔwɔ ho. Saa adwuma yi nnyinaa nni hwe sɛ ɛbɛka nneɛma a wɔde awɔ wɔn a wɔwɔ ho no anaa nkra a wɔde awɔ wɔn a wɔwɔ ho no."
+                disclaimer: "<strong>Hwɛ bio bio sɛ mfonini a wɔkyerɛ no fi jw.org website so</strong><br><br><strong>Nkaeɛ:</strong> Saa hwehwɛ adwuma yɛ adehyeɛ a emfi JW.org mu. Yɛde ma nkaeɛ a ɛyɛ adwuma wɔ nnasem ne nsɛm a ɛwɔ ho kyerɛkyerɛ ho. Wo ho nkɔmhyɛ wɔ saa adwuma yi so. Nnɛɛma a ɛbɛba a ɛwɔ saa adwuma yi ho nti, yɛnni ho nkɔmhyɛ. JW.org ne ne nneɛma yɛ nneɛma a wɔde awɔ wɔn a wɔwɔ ho nkra ne nneɛma a wɔde awɔ wɔn a wɔwɔ ho. Saa adwuma yi nnyinaa nni hwe sɛ ɛbɛka nneɛma a wɔde awɔ wɔn a wɔwɔ ho no anaa nkra a wɔde awɔ wɔn a wɔwɔ ho no."
             }
         };
 
-        let currentLang = 'en'; // Changed default to English
+        let currentLang = 'en'; // Default: English
 
         function updateUI() {
             const langData = translations[currentLang];
@@ -153,10 +185,14 @@
             document.getElementById('search_term').placeholder = langData.placeholder;
             document.getElementById('btn-images').textContent = langData.images;
             document.getElementById('disclaimer-text').innerHTML = langData.disclaimer;
+            
+            // Aggiorna i colori dei pulsanti
             const buttons = document.querySelectorAll('button');
             buttons.forEach(button => {
                 button.style.backgroundColor = langData.buttonColor;
             });
+            
+            // Aggiorna la selezione della lingua
             document.querySelectorAll('.language-flag').forEach(flag => {
                 if (flag.dataset.lang === currentLang) {
                     flag.classList.add('selected');
@@ -164,6 +200,25 @@
                     flag.classList.remove('selected');
                 }
             });
+            
+            // Nascondi Bing per il Twi
+            updateSearchEngines();
+        }
+
+        function updateSearchEngines() {
+            // Mostra Bing per tutte le lingue tranne Twi
+            document.querySelector('.engine-bing').classList.remove('hidden');
+            
+            // Nascondi Bing per il Twi
+            if (currentLang === 'twi') {
+                document.querySelector('.engine-bing').classList.add('hidden');
+                
+                // Se Bing era selezionato, passa a Google
+                const selectedEngine = document.querySelector('input[name="search-engine"]:checked');
+                if (selectedEngine && selectedEngine.value === 'bing') {
+                    document.querySelector('input[value="google"]').checked = true;
+                }
+            }
         }
 
         function showAlert(type, message) {
@@ -173,20 +228,42 @@
             setTimeout(() => { alert.style.display = 'none'; }, 3000);
         }
 
-        function search(type) {
+        function searchImages() {
             const term = document.getElementById('search_term').value.trim();
             if (!term) {
                 showAlert('error', translations[currentLang].error);
                 return;
             }
+            
+            // Ottieni il motore di ricerca selezionato
+            const engine = document.querySelector('input[name="search-engine"]:checked').value;
+            
+            // Costruisci l'URL in base al motore di ricerca e alla lingua
             let url;
-            if (currentLang === "it") {
-                url = `https://www.google.com/search?tbm=isch&q=${term}+site:jw.org/it`;
-            } else if (currentLang === "en") {
-                url = `https://www.google.com/search?tbm=isch&q=${term}+site:jw.org/en`;
-            } else if (currentLang === "twi") {
-                url = `https://www.google.com/search?tbm=isch&q=${term}+site:jw.org/tw`;
+            const encodedTerm = encodeURIComponent(term);
+            
+            switch(engine) {
+                case 'google':
+                    if (currentLang === "it") {
+                        url = `https://www.google.com/search?q=site:jw.org/it+${encodedTerm}+site:jw.org/it&udm=2`;
+                    } else if (currentLang === "en") {
+                        url = `https://www.google.com/search?q=site:jw.org/en+${encodedTerm}+site:jw.org/en&udm=2`;
+                    } else if (currentLang === "twi") {
+                        url = `https://www.google.com/search?q=site:jw.org/tw+${encodedTerm}+site:jw.org/tw&udm=2`;
+                    }
+                    break;
+                    
+                case 'bing':
+                    if (currentLang === "it") {
+                        url = `https://www.bing.com/images/search?q=${encodedTerm}+site:jw.org/it`;
+                    } else if (currentLang === "en") {
+                        url = `https://www.bing.com/images/search?q=${encodedTerm}+site:jw.org/en`;
+                    } else if (currentLang === "twi") {
+                        url = `https://www.bing.com/images/search?q=${encodedTerm}+site:jw.org/tw`;
+                    }
+                    break;
             }
+            
             showAlert('success', translations[currentLang].success + term);
             window.open(url, '_blank');
         }
@@ -198,10 +275,10 @@
             });
         });
 
-        // Aggiungi un listener per il tasto "Invio"
+        // Listener per il tasto "Invio"
         document.getElementById('search_term').addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
-                search('images');
+                searchImages();
             }
         });
 
@@ -209,4 +286,3 @@
     </script>
 </body>
 </html>
-
